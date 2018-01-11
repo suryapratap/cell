@@ -1,34 +1,43 @@
 <html>
-<head><meta name="viewport" content="width=device-width, initial-scale=1"><script src="https://www.celljs.org/cell.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.1/timeago.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
-<script src="./website/demos/twitter.js"></script>
-<script src="./website/demos/bitcoin.js"></script><script>
-window.onload = function () {
 
-    var container = document.createElement('div');
-    container.className = 'container';
-    document.body.appendChild(container);
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://www.celljs.org/cell.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.1/timeago.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  <script src="./website/demos/twitter.js"></script>
+  <script src="./website/demos/bitcoin.js"></script>
+  <script>
+    window.onload = function () {
 
-    var phd = document.getElementById('phd');
-    container.appendChild(phd);
+      var container = document.createElement('div');
+      container.className = 'container';
+      document.body.appendChild(container);
 
-    document.querySelector("#widget").$build($root);
-    document.querySelector("#twitter").$build(T);
-    hljs.initHighlighting();
+      var phd = document.getElementById('phd');
+      container.appendChild(phd);
 
-    (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-    ga('create', 'UA-54282166-10', 'auto');
-    ga('send', 'pageview');
-  }
-</script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/grayscale.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Merriweather:900" rel="stylesheet">
-<link href="./website/style.css" rel="stylesheet"></head><body><div id="phd"><p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo"></p>
+      document.querySelector("#widget").$build($root);
+      document.querySelector("#twitter").$build(T);
+      hljs.initHighlighting();
+
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-54282166-10', 'auto');
+      ga('send', 'pageview');
+    }
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/grayscale.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:900" rel="stylesheet">
+  <link href="./website/style.css" rel="stylesheet">
+</head>
+
+<body><div id="phd"><p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo"></p>
 <div class="header">
 <a href="https://github.com/intercellular/cell" class="btn btn-primary">GitHub</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
