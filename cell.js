@@ -191,10 +191,8 @@
      *   - $update(): executes the "$update" callback function when needed (called by Nucleus on every tick)
      */
     build: function($node, genotype) {
+      genotype = Phenotype.$virus(genotype);
       Phenotype.$init($node);
-      if (genotype.$virus) {
-        genotype = Phenotype.$virus(genotype, genotype.$virus);
-      }
       for (var key in genotype) {
         if (genotype[key] !== null && genotype[key] !== undefined) {
           Phenotype.set($node, key, genotype[key]);
@@ -240,17 +238,18 @@
         if (prop) prop.set.call($node, val);
       }
     },
-    $virus: function(genotype, transform) {
-      //If it's an array, compose all the functions (following array order)
-      if (Array.isArray(transform)) {
-        transform = transform.reduce(function(f, g) {
-          return function(_genotype) {
-            return g(f(_genotype));
-          };
-        });
-      }
+    $virus: function(genotype) {
+      var virus = genotype.$virus;
+      if (!virus) return genotype;
+      var mutations = Array.isArray(virus) ? virus : [virus];
       delete genotype.$virus;
-      return transform(genotype);
+      return mutations.reduce(function(geno, mutate) {
+        var mutated = mutate(geno);
+        if (mutated === null || typeof mutated !== 'object') {
+          throw new Error('$virus mutations must return an object');
+        }
+        return mutated;
+      }, genotype);
     },
     $type: function(model, namespace) {
       var meta = {};

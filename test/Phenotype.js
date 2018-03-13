@@ -191,18 +191,56 @@ describe("Phenotype", function() {
       })
     })
     describe("$virus", function() {
-      it("basic", function() {
-        let component = {$type: "ul"};
-        Phenotype.$virus(component, function(node){
-          node.$components = [
-            {$type: 'li'}
-          ];
-          return node;
-        });
-        let $node = root.document.body.$build(component, []);
+      let ul_mutating_virus = function(component){
+        component.id = "infected";
+        component.$components = [{$type: 'li'}];
+        return component;
+      }
+      it("Applies a single virus mutation", function() {
+        let component = { $type: 'ul', $virus: ul_mutating_virus };
 
-        compare($node.outerHTML, "<ul><li></li></ul>");
+        compare(Phenotype.$virus(component), {
+          $type: 'ul',
+          $components: [{$type: 'li'}],
+          id: 'infected',
+        })
+
+        let $node = root.document.body.$build(component, []);
+        compare($node.outerHTML, '<ul id="infected"><li></li></ul>');
       })
+      it("Applies multiple virus mutations sequentially", function() {
+        let id_mutating_virus = function(component){
+          component._previous_id = component.id;
+          component.id += "_again";
+          return component;
+        }
+
+        let component = {
+          $type: 'ul',
+          $virus: [ul_mutating_virus, id_mutating_virus]
+        };
+
+        compare(Phenotype.$virus(component), {
+          $type: 'ul',
+          $components: [{$type: 'li'}],
+          _previous_id: 'infected',
+          id: 'infected_again',
+        })
+
+        let $node = root.document.body.$build(component, []);
+        compare($node.outerHTML, '<ul id="infected_again"><li></li></ul>');
+      })
+      it("Errors when mutation does not comply with the API", function() {
+        let wrong_mutation = function(component){
+          let the_thing = "return nothing";
+        }
+
+        let component = { $type: 'ul', $virus: wrong_mutation };
+
+        assert.throws(() => Phenotype.$virus(component), /return an object/)
+      })
+      // Can have a virus that helps generating markup.
+      // Can have a virus that propagates $update to children.
       it("can modify updates behavior", function() {
         function cell_propagator(component){
           let recursive_update = (node) => {
