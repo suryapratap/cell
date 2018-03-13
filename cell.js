@@ -192,6 +192,9 @@
      */
     build: function($node, genotype) {
       Phenotype.$init($node);
+      if (genotype.$virus) {
+        genotype = Phenotype.$virus(genotype, genotype.$virus);
+      }
       for (var key in genotype) {
         if (genotype[key] !== null && genotype[key] !== undefined) {
           Phenotype.set($node, key, genotype[key]);
@@ -236,6 +239,18 @@
         var prop = Phenotype.get(key);
         if (prop) prop.set.call($node, val);
       }
+    },
+    $virus: function(genotype, transform) {
+      //If it's an array, compose all the functions (following array order)
+      if (Array.isArray(transform)) {
+        transform = transform.reduce(function(f, g) {
+          return function(_genotype) {
+            return g(f(_genotype));
+          };
+        });
+      }
+      delete genotype.$virus;
+      return transform(genotype);
     },
     $type: function(model, namespace) {
       var meta = {};

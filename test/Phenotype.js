@@ -190,6 +190,116 @@ describe("Phenotype", function() {
         })
       })
     })
+    describe("$virus", function() {
+      it("basic", function() {
+        let component = {$type: "ul"};
+        Phenotype.$virus(component, function(node){
+          node.$components = [
+            {$type: 'li'}
+          ];
+          return node;
+        });
+        let $node = root.document.body.$build(component, []);
+
+        compare($node.outerHTML, "<ul><li></li></ul>");
+      })
+      it("can modify updates behavior", function() {
+        function cell_propagator(component){
+          let recursive_update = (node) => {
+            for(let n of node.children){
+              n.$update && n.$update()
+              recursive_update(n)
+            }
+          }
+
+          let old_update = component.$update
+
+          component.$update = function(){
+            old_update && old_update.call(this)
+            recursive_update(this)
+          }
+
+          return component
+        }
+
+        let $node = document.createElement('ul')
+        $node.Genotype = {
+          $type: 'ul',
+          _name: 'test',
+          $virus: cell_propagator,
+          $update: function(){},
+          $components: [
+            {
+              $type: 'li',
+              $text: '',
+              $update: function() {
+                this.$text = this._name
+              }
+            }
+          ],
+          Inheritance: [],
+          Meta: {}
+        }
+
+        Nucleus.build($node);
+        Phenotype.build($node, $node.Genotype);
+
+        $node._name = 'testing'
+        $node.$update()
+
+        compare($node.$components[0].$text, 'testing')
+      })
+      it("can chain different viruses", function(){
+        function within(component){
+          let selectors = component._selectors.split(' ')
+          let initial_tag = { _tag: selectors.pop(), $virus: tag }
+
+          let element = selectors.reduceRight(function(current_tag, selector){
+            return { _tag: selector, $virus: tag, $components: [current_tag]}
+          }, initial_tag)
+
+          return element
+        }
+
+        function tag(component){
+          let selector = component._tag
+          let parts = selector.match(/([a-zA-Z0-9]*)([#a-zA-Z0-9-_]*)([.a-zA-Z0-9-_]*)/)
+
+          let element = Object.assign({}, component)
+          element.$virus = tag
+
+          if (parts[1]) element.$type = parts[1]
+          if (parts[2]) element.id = parts[2].substring(1)
+          if (parts[3]) element['class'] = parts[3].split('.').join(' ').trim()
+
+          return element
+        }
+
+        function apply_virus_recursively(genotype){
+          let result = Phenotype.$virus(genotype, genotype.$virus)
+          if (result.$components) {
+            result.$components = result.$components.map(
+              (component) => apply_virus_recursively(component)
+            )
+          }
+          return result
+        }
+
+        let genotype = {
+          _selectors: '.class-a span#id-span.class-b',
+          $virus: [ within, tag ],
+          $update: function(){},
+          $components: [{ $type: 'li' }]
+        }
+
+        let result = apply_virus_recursively(Phenotype.$virus(genotype, genotype.$virus))
+
+        compare(result.class, 'class-a')
+        compare(result.$components[0].$type, 'span')
+        compare(result.$components[0].id, 'id-span')
+        compare(result.$components[0].class, 'class-b')
+      })
+    })
     describe("$init", function() {
       beforeEach(function() {
         Nucleus._queue = []
@@ -420,13 +530,13 @@ describe("Phenotype", function() {
 
           styleAttr = $node.getAttribute("style");
           styleProp = $node.style;
-         
+
           compare(styleAttr, "background-color: red; font-family: Courier;")
           compare(styleProp.backgroundColor, "red");
           compare(styleProp.fontFamily, "Courier");
 
           compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
-          
+
         });
       });
       describe("string", function() {
@@ -448,13 +558,13 @@ describe("Phenotype", function() {
 
           styleAttr = $node.getAttribute("style");
           styleProp = $node.style;
-         
+
           compare(styleAttr, "background-color: red;")
           // even if we initially set the style as string,
           // we should be able to access it as an object property
           compare(styleProp.backgroundColor, "red");
           compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
-          
+
         });
         it("class", function() {
           const $parent = document.createElement("div");
