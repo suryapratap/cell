@@ -110,11 +110,25 @@
       Genotype.set($node, key, val);
     },
     build: function($node, gene, inheritance) {
+      gene = Genotype.infect(gene);
       $node.Genotype = {};
       $node.Inheritance = inheritance;
       for (var key in gene) {
         Genotype.set($node, key, gene[key]);
       }
+    },
+    infect: function(gene) {
+      var virus = gene.$virus;
+      if (!virus) return gene;
+      var mutations = Array.isArray(virus) ? virus : [virus];
+      delete gene.$virus;
+      return mutations.reduce(function(g, mutate) {
+        var mutated = mutate(g);
+        if (mutated === null || typeof mutated !== 'object') {
+          throw new Error('$virus mutations must return an object');
+        }
+        return mutated;
+      }, gene);
     },
   };
   var Gene = {
@@ -191,7 +205,6 @@
      *   - $update(): executes the "$update" callback function when needed (called by Nucleus on every tick)
      */
     build: function($node, genotype) {
-      genotype = Phenotype.$virus(genotype);
       Phenotype.$init($node);
       for (var key in genotype) {
         if (genotype[key] !== null && genotype[key] !== undefined) {
@@ -237,19 +250,6 @@
         var prop = Phenotype.get(key);
         if (prop) prop.set.call($node, val);
       }
-    },
-    $virus: function(genotype) {
-      var virus = genotype.$virus;
-      if (!virus) return genotype;
-      var mutations = Array.isArray(virus) ? virus : [virus];
-      delete genotype.$virus;
-      return mutations.reduce(function(geno, mutate) {
-        var mutated = mutate(geno);
-        if (mutated === null || typeof mutated !== 'object') {
-          throw new Error('$virus mutations must return an object');
-        }
-        return mutated;
-      }, genotype);
     },
     $type: function(model, namespace) {
       var meta = {};
