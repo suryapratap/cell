@@ -127,6 +127,7 @@
         if (mutated === null || typeof mutated !== 'object') {
           throw new Error('$virus mutations must return an object');
         }
+        mutated.$type = mutated.$type || 'div'
         return mutated;
       }, gene);
     },
