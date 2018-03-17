@@ -110,7 +110,6 @@
       Genotype.set($node, key, val);
     },
     build: function($node, gene, inheritance) {
-      gene = Genotype.infect(gene);
       $node.Genotype = {};
       $node.Inheritance = inheritance;
       for (var key in gene) {
@@ -537,7 +536,8 @@
       // As a result, all HTML elements become autonomous.
       if ($context === undefined) $context = $root;
       else $root = $context;
-      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace, replace) {
+      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(healthy_gene, inheritance, index, namespace, replace) {
+        var gene = Genotype.infect(healthy_gene);
         var $node = Membrane.build(this, gene, index, namespace, replace);
         Genotype.build($node, gene, inheritance || [], index);
         Nucleus.build($node);
