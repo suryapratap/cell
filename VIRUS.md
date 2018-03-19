@@ -1,11 +1,11 @@
-#Virus
+# Virus
 
-##Concept
+## Concept
 Viruses are a plug-in system that makes it able to include custom transformations to the cells, extending them as far as wanted.
 
 To use it, you should "infect" a Gene with a Virus, which is a function that takes a Gene-like object and returns another Gene-like object. This returned object _could_ be a real Gene or an object to be transformed by another Virus (pretty much like a Pipeline).
 
-##Examples
+## Examples
 The following virus propagates the $update method down the inheritance tree when a variable is changed:
 
 ```
