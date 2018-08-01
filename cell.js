@@ -286,7 +286,7 @@
           return $node.Kill;
         }).forEach(function($node) {
           $parent.removeChild($node);
-          setTimeout(function(){
+          setTimeout(function() {
             Nucleus.disconnect($node);
           }, 0);
         });
@@ -520,7 +520,7 @@
       var index = Nucleus._queue.indexOf($node);
       if (index !== -1) Nucleus._queue.splice(index, 1);
       $node.childNodes.forEach(Nucleus.disconnect);
-    }
+    },
   };
   var God = {
     /*
