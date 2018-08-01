@@ -286,6 +286,9 @@
           return $node.Kill;
         }).forEach(function($node) {
           $parent.removeChild($node);
+          setTimeout(function(){
+            Nucleus.disconnect($node);
+          }, 0);
         });
         diff['+'].forEach(function(item) {
           var inheritance = $parent.Inheritance;
@@ -513,6 +516,11 @@
         $node.Dirty[key] = Gene.freeze($node.Genotype[key]); // stores the original value under "Dirty"
       }
     },
+    disconnect: function($node) {
+      var index = Nucleus._queue.indexOf($node);
+      if (index !== -1) Nucleus._queue.splice(index, 1);
+      $node.childNodes.forEach(Nucleus.disconnect);
+    }
   };
   var God = {
     /*
