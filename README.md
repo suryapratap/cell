@@ -403,3 +403,9 @@ Cell completely encapsulates your app's logic into discrete HTML elements, so in
 <div id='twitter'></div>
 
 <br>
+
+
+## Resources ##
+
+- An example TODO app built with cell.js
+https://github.com/brettdewoody/celljs-todo-demo
