@@ -256,7 +256,7 @@ Learn more about the underlying architecture [here](./GENESIS.md).
 
 
 
-# What problems this solves
+# What Problems Does This Solve?
 
 
 ## 1. There is No God (There is No Framework)
