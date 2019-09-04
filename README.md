@@ -407,5 +407,8 @@ Cell completely encapsulates your app's logic into discrete HTML elements, so in
 
 ## Resources ##
 
+- Tutorial
+https://github.com/lesichkovm/tutorial
+
 - An example TODO app built with cell.js
 https://github.com/brettdewoody/celljs-todo-demo
