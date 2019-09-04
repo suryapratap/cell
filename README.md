@@ -9,7 +9,7 @@
 
 <br><br>
 
-<a class="badge" href="https://travis-ci.org/intercellular/cell"><img alt="Build Status" src="https://travis-ci.org/intercellular/cell.svg?branch=master"></a>
+<a class="badge" href="https://travis-ci.org/lesichkovm/cell"><img alt="Build Status" src="https://travis-ci.org/lesichkovm/cell.svg?branch=master"></a>
 <a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
 
 </div>
