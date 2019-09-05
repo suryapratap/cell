@@ -412,3 +412,7 @@ https://github.com/lesichkovm/tutorial
 
 - An example TODO app built with cell.js
 https://github.com/brettdewoody/celljs-todo-demo
+
+- Another TODO app
+https://github.com/SilverSoldier/todoMVC-celljs
+
