@@ -113,7 +113,7 @@ var el = {
 Here's the generated DOM tree, as viewed in Chrome inspector:
 
 
-![autonomous dom](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/autnonomous_dom.png)
+![autonomous dom](img/autnonomous_dom.png)
 
 <br>
 
@@ -243,7 +243,7 @@ When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell
 
 <br>
 
-![generator](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/function.jpg)
+![generator](img/function.jpg)
 
 
 <br>
@@ -258,7 +258,7 @@ Normally Javascript frameworks maintain a separate **centralized data structure 
 
 <br>
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg)
+![Image](img/domtree.jpg)
 
 <br>
 
@@ -277,7 +277,7 @@ Learn more about the underlying architecture [here](./GENESIS.md).
 
 Cell has no overarching framework that powers each and every corner of your app.
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/architecture.jpg)
+![Image](img/architecture.jpg)
 
 Normally web app frameworks maintain a central "Model-View-Controller" architecture (or similar) which takes care of everything throughout the app's lifecycle.
 
@@ -299,7 +299,7 @@ Nowadays, just to make a simple web app you need to learn all kinds of middlemen
 
 These tools were born out of necessity as web apps became more complex. But if you take a fundamentally different approach, you may not need them at all.
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/process.jpg)
+![Image](img/process.jpg)
 
 Here are some of the reasons why these middlemen have been necessary, and **why Cell doesn't need them**.
 
@@ -391,7 +391,7 @@ So if you ever want to use a new framework, you have to rewrite the entire app, 
 
 Being able to containerize your app's logic and data inside its HTML elements and then "ship" it to the DOM enables a lot of cool things.
 
-![container](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/container.png)
+![container](img/container.png)
 
 ### A. Integrate with ANY Web Technology Natively.
 
