@@ -1,7 +1,10 @@
+# Foreword #
+This is a continuation effort of the amazing web framework **Cell.js**. The original can still be found at its abandoned project repository: <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>, but use with caution as most of the links/images/instructions there will no longer work 
+
 <img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo">
 
 <div class="header">
-<a href="https://github.com/intercellular/cell" class="btn btn-primary">GitHub</a>
+<a href="https://github.com/lesichkovm/cell" class="btn btn-primary">GitHub</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 <a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
@@ -10,7 +13,7 @@
 <br><br>
 
 <a class="badge" href="https://travis-ci.org/lesichkovm/cell"><img alt="Build Status" src="https://travis-ci.org/lesichkovm/cell.svg?branch=master"></a>
-<a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
+<a class="badge" href="https://coveralls.io/github/lesichkovm/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/lesichkovm/cell/badge.svg"></a>
 
 </div>
 
@@ -46,6 +49,17 @@ es and objects, making it extremely modular.
 
 <br>
 
+# Installation
+
+1) Via CDN (preferred)
+```html
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
+```
+
+2) Manual
+
+Download the file <b>[cell.js](https://github.com/lesichkovm/cell/cell.js)</b> and add to your project
+
 # Try Now
 
 Try downloading to your local machine and open it in your browser.
@@ -56,7 +70,7 @@ Seriously, there is no additional code or dependency, no environment to set up. 
 
 ```html
 <html>
-<script src="https://www.celljs.org/cell.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
 <script>
 var el = {
   $cell: true,
@@ -403,3 +417,16 @@ Cell completely encapsulates your app's logic into discrete HTML elements, so in
 <div id='twitter'></div>
 
 <br>
+
+
+## Resources ##
+
+- Tutorial
+https://github.com/lesichkovm/tutorial
+
+- An example TODO app built with cell.js
+https://github.com/brettdewoody/celljs-todo-demo
+
+- Another TODO app
+https://github.com/SilverSoldier/todoMVC-celljs
+
