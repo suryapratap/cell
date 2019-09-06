@@ -53,7 +53,7 @@ es and objects, making it extremely modular.
 
 1) Via CDN (preferred)
 ```html
-<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.4.0/cell.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
 ```
 
 2) Manual
