@@ -1,6 +1,6 @@
-<section>
+<section style="background:beige;border-radius:10px;padding:20px;margin:10px 10px 40px 10px;">
    <p>
-     This is a fork of the now abandoned project <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>
+     This is a continuation effort of the amazing web framework Cell.js. The original can still be found at its abandoned project repository, but most of the links/images/instructions there will no longer work: <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>
    </p>
 </section>
 
