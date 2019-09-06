@@ -70,7 +70,7 @@ Seriously, there is no additional code or dependency, no environment to set up. 
 
 ```html
 <html>
-<script src="https://www.celljs.org/cell.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
 <script>
 var el = {
   $cell: true,
