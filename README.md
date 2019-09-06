@@ -1,7 +1,7 @@
 # Foreword #
 This is a continuation effort of the amazing web framework **Cell.js**. The original can still be found at its abandoned project repository: <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>, but use with caution as most of the links/images/instructions there will no longer work 
 
-<img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo">
+<img src ="img/celljs.png" class="logo">
 
 <div class="header">
 <a href="https://github.com/lesichkovm/cell" class="btn btn-primary">GitHub</a>
