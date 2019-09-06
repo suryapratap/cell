@@ -1,7 +1,10 @@
-<img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo">
+# Foreword #
+This is a continuation effort of the amazing web framework **Cell.js**. The original can still be found at its abandoned project repository: <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>, but use with caution as most of the links/images/instructions there will no longer work 
+
+<img src ="img/celljs.png" class="logo">
 
 <div class="header">
-<a href="https://github.com/intercellular/cell" class="btn btn-primary">GitHub</a>
+<a href="https://github.com/lesichkovm/cell" class="btn btn-primary">GitHub</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 <a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
@@ -9,8 +12,8 @@
 
 <br><br>
 
-<a class="badge" href="https://travis-ci.org/intercellular/cell"><img alt="Build Status" src="https://travis-ci.org/intercellular/cell.svg?branch=master"></a>
-<a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
+<a class="badge" href="https://travis-ci.org/lesichkovm/cell"><img alt="Build Status" src="https://travis-ci.org/lesichkovm/cell.svg?branch=master"></a>
+<a class="badge" href="https://coveralls.io/github/lesichkovm/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/lesichkovm/cell/badge.svg"></a>
 
 </div>
 
@@ -46,6 +49,17 @@ es and objects, making it extremely modular.
 
 <br>
 
+# Installation
+
+1) Via CDN (preferred)
+```html
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
+```
+
+2) Manual
+
+Download the file <b>[cell.js](https://github.com/lesichkovm/cell/cell.js)</b> and add to your project
+
 # Try Now
 
 Try downloading to your local machine and open it in your browser.
@@ -56,7 +70,7 @@ Seriously, there is no additional code or dependency, no environment to set up. 
 
 ```html
 <html>
-<script src="https://www.celljs.org/cell.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
 <script>
 var el = {
   $cell: true,
@@ -99,7 +113,7 @@ var el = {
 Here's the generated DOM tree, as viewed in Chrome inspector:
 
 
-![autonomous dom](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/autnonomous_dom.png)
+![autonomous dom](img/autnonomous_dom.png)
 
 <br>
 
@@ -229,7 +243,7 @@ When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell
 
 <br>
 
-![generator](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/function.jpg)
+![generator](img/function.jpg)
 
 
 <br>
@@ -244,7 +258,7 @@ Normally Javascript frameworks maintain a separate **centralized data structure 
 
 <br>
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg)
+![Image](img/domtree.jpg)
 
 <br>
 
@@ -256,14 +270,14 @@ Learn more about the underlying architecture [here](./GENESIS.md).
 
 
 
-# What problems this solves
+# What Problems Does This Solve?
 
 
 ## 1. There is No God (There is No Framework)
 
 Cell has no overarching framework that powers each and every corner of your app.
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/architecture.jpg)
+![Image](img/architecture.jpg)
 
 Normally web app frameworks maintain a central "Model-View-Controller" architecture (or similar) which takes care of everything throughout the app's lifecycle.
 
@@ -285,7 +299,7 @@ Nowadays, just to make a simple web app you need to learn all kinds of middlemen
 
 These tools were born out of necessity as web apps became more complex. But if you take a fundamentally different approach, you may not need them at all.
 
-![Image](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/process.jpg)
+![Image](img/process.jpg)
 
 Here are some of the reasons why these middlemen have been necessary, and **why Cell doesn't need them**.
 
@@ -377,7 +391,7 @@ So if you ever want to use a new framework, you have to rewrite the entire app, 
 
 Being able to containerize your app's logic and data inside its HTML elements and then "ship" it to the DOM enables a lot of cool things.
 
-![container](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/container.png)
+![container](img/container.png)
 
 ### A. Integrate with ANY Web Technology Natively.
 
@@ -403,3 +417,16 @@ Cell completely encapsulates your app's logic into discrete HTML elements, so in
 <div id='twitter'></div>
 
 <br>
+
+
+## Resources ##
+
+- Tutorial
+https://github.com/lesichkovm/tutorial
+
+- An example TODO app built with cell.js
+https://github.com/brettdewoody/celljs-todo-demo
+
+- Another TODO app
+https://github.com/SilverSoldier/todoMVC-celljs
+
