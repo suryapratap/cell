@@ -1,3 +1,9 @@
+<section>
+   <p>
+     This is a fork of the now abandoned project <a href="https://github.com/intercellular/cell" target="_blank">intercellular/cell</a>
+   </p>
+</section>
+
 <img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo">
 
 <div class="header">
@@ -45,6 +51,17 @@ es and objects, making it extremely modular.
 6. **Easy to maintain:** "Development workflow" doesn't exist. No NPM, No Webpack, No Babel, just vanilla Javascript and 100% based on web standards.
 
 <br>
+
+# Installation
+
+1) Via CDN (preferred)
+```html
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.4.0/cell.js"></script>
+```
+
+2) Manual
+
+Download the file <b>[cell.js](https://github.com/lesichkovm/cell/cell.js)</b> and add to your project
 
 # Try Now
 
