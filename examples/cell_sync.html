@@ -1,0 +1,36 @@
+<html>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
+<script>
+var el = {
+  $cell: true,
+  style: "font-family: Helvetica; font-size: 14px;",
+  $components: [
+    {
+      $type: "input",
+      type: "text",
+      placeholder: "Type something and press enter",
+      style: "width: 100%; outline:none; padding: 5px;",
+      $init: function(e) { this.focus() },
+      onkeyup: function(e) {
+        if (e.keyCode === 13) {
+          document.querySelector("#list")._add(this.value);
+          this.value = "";
+        }
+      }
+    },
+    {
+      $type: "ol",
+      id: "list",
+      _items: [],
+      $components: [],
+      _add: function(val) { this._items.push(val) },
+      $update: function() {
+        this.$components = this._items.map(function(item) {
+          return { $type: "li", $text: item }
+        })
+      }
+    }
+  ]
+}
+</script>
+</html>
