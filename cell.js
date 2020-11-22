@@ -1,4 +1,4 @@
-/*
+/**
  *   {cell}
  *
  *   - Membrane: "The cell membrane (also known as the plasma membrane or cytoplasmic membrane) is a biological membrane that separates the interior of all cells from the outside environment"
@@ -8,26 +8,26 @@
  *   - Nucleus: "The nucleus maintains the integrity of genes and controls the activities of the cell by regulating gene expression—the nucleus is, therefore, the control center of the cell."
  */
 (function ($root) {
+  /**
+   *  [Membrane] The Shell
+   *
+   *  "The cell membrane (also known as the plasma membrane or cytoplasmic membrane) is a biological membrane that separates the interior of all cells from the outside environment"
+   *    - https://en.wikipedia.org/wiki/Cell_membrane
+   *
+   *  The Membrane module determines how a cell is inserted into the DOM. There are two ways: Replacing an existing node with cell (inject), or Creating an additional cell node (add).
+   *   - inject(): attempts to inject cell into an existing host node
+   *   - add(): creates a new cell node and adds it to the DOM without touching other nodes
+   */
   var Membrane = {
-    /*
-       *  [Membrane] The Shell
-       *
-       *  "The cell membrane (also known as the plasma membrane or cytoplasmic membrane) is a biological membrane that separates the interior of all cells from the outside environment"
-       *    - https://en.wikipedia.org/wiki/Cell_membrane
-       *
-       *  The Membrane module determines how a cell is inserted into the DOM. There are two ways: Replacing an existing node with cell (inject), or Creating an additional cell node (add).
-       *   - inject(): attempts to inject cell into an existing host node
-       *   - add(): creates a new cell node and adds it to the DOM without touching other nodes
-       */
+    /**
+     * Membrane.inject() : Inject cell into an existing node
+     * 
+     * @param {Object} $host - existing host node to inject into
+     * @param {Object} gene - gene object
+     * @param {String} namespace - for handling namespaced elements such as SVG https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS
+     * @param {Boolean} replace - if true, create a node and replace it with the host node. Used for manual instantiation
+     */
     inject: function ($host, gene, namespace, replace) {
-      /*
-         *  Membrane.inject() : Inject cell into an existing node
-         *
-         *  @param {Object} $host - existing host node to inject into
-         *  @param {Object} gene - gene object
-         *  @param {String} namespace - for handling namespaced elements such as SVG https://developer.mozilla.org/en-US/docs/Web/API/Document/createElementNS
-         *  @param {Boolean} replace - if true, create a node and replace it with the host node. Used for manual instantiation
-         */
       var $node = null;
       var $replacement;
       if (replace && $host) {
@@ -55,7 +55,9 @@
           $node = $replacement;
         }
       }
-      if ($node && !$node.Meta) $node.Meta = {};
+      if ($node && !$node.Meta) {
+        $node.Meta = {};
+      }
       return $node;
     },
     add: function ($parent, gene, index, namespace) {
@@ -91,20 +93,20 @@
       else return Membrane.add($parent, gene, index, namespace);
     },
   };
+
+  /**
+   *  [Genotype] Internal Storage of Genes
+   * 
+   *  "Genotype is an organism's full hereditary information."
+   * - https://en.wikipedia.org/wiki/Genotype
+   *   The Genotype module is an internal storage for all the variables required to construct a cell node (attributes, $variables, and _variables)
+   *   When you set a variable on a cell (for example: this._index=1), it's actually stored under the node's Genotype instead of directly on the node itself.
+   * 
+   *    - set(): a low-level function to simply set a key/value pair on the Genotype object, used by update() and build()
+   *    - update(): updates a key/value pair from the genotype and schedules a phenotype (view) update event to be processed on the next tick
+   *    - build(): builds a fresh genotype object from a gene object
+   */
   var Genotype = {
-    /*
-       *  [Genotype] Internal Storage of Genes
-       *
-       *  "Genotype is an organism's full hereditary information."
-       *    - https://en.wikipedia.org/wiki/Genotype
-       *
-       *   The Genotype module is an internal storage for all the variables required to construct a cell node (attributes, $variables, and _variables)
-       *   When you set a variable on a cell (for example: this._index=1), it's actually stored under the node's Genotype instead of directly on the node itself.
-       *
-       *   - set(): a low-level function to simply set a key/value pair on the Genotype object, used by update() and build()
-       *   - update(): updates a key/value pair from the genotype and schedules a phenotype (view) update event to be processed on the next tick
-       *   - build(): builds a fresh genotype object from a gene object
-       */
     set: function ($node, key, val) {
       if (["$init"].indexOf(key) === -1) {
         $node.Genotype[key] = Nucleus.bind($node, val);
@@ -139,18 +141,19 @@
       }, gene);
     },
   };
+
+  /**
+   *  [Gene] Gene manipulation/diff functions
+   *
+   *  "The transmission of genes to an organism's offspring is the basis of the inheritance of phenotypic traits. These genes make up different DNA sequences called genotypes. Genotypes along with environmental and developmental factors determine what the phenotypes will be."
+   *    - https://en.wikipedia.org/wiki/Gene
+   *
+   *  The Gene module is a collection of utility functions used for comparing gene objects to determine if a node needs to be replaced or left alone when there's an update.
+   *   - freeze(): stringifies a Javascript object snapshot for comparison
+   *   - LCS(): Longest Common Subsequence algorithm https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+   *   - diff(): A diff algorithm that returns what have been added (+), and removed (-)
+   */
   var Gene = {
-    /*
-       *  [Gene] Gene manipulation/diff functions
-       *
-       *  "The transmission of genes to an organism's offspring is the basis of the inheritance of phenotypic traits. These genes make up different DNA sequences called genotypes. Genotypes along with environmental and developmental factors determine what the phenotypes will be."
-       *    - https://en.wikipedia.org/wiki/Gene
-       *
-       *  The Gene module is a collection of utility functions used for comparing gene objects to determine if a node needs to be replaced or left alone when there's an update.
-       *   - freeze(): stringifies a Javascript object snapshot for comparison
-       *   - LCS(): Longest Common Subsequence algorithm https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-       *   - diff(): A diff algorithm that returns what have been added (+), and removed (-)
-       */
     freeze: function (gene) {
       var cache = [];
       var res = JSON.stringify(gene, function (key, val) {
@@ -208,24 +211,25 @@
       return { "-": minus, "+": plus };
     },
   };
+
+  /**
+   *  [Phenotype] Actual observed properties of a cell
+   *
+   *  "Phenotype is an organism's actual observed properties, such as morphology, development, or behavior."
+   *    - https://en.wikipedia.org/wiki/Phenotype
+   *
+   *  The Phenotype module manages a cell's actual observed properties, such as textContent ($text), nodeType ($type), innerHTML ($html), childNodes ($components), and DOM attributes
+   *
+   *   - build(): Build phenotype from genotype
+   *   - set(): Sets a key/value pair of phenotype
+   *   - $type(): translates the "$type" attribute to nodeType
+   *   - $text(): translates the "$type" attribute to textContent
+   *   - $html(): translates the "$type" attribute to innerHTML
+   *   - $components(): translates the "$components" attribute to childNodes
+   *   - $init(): executes the "$init" callback function after the element has been rendered
+   *   - $update(): executes the "$update" callback function when needed (called by Nucleus on every tick)
+   */
   var Phenotype = {
-    /*
-       *  [Phenotype] Actual observed properties of a cell
-       *
-       *  "Phenotype is an organism's actual observed properties, such as morphology, development, or behavior."
-       *    - https://en.wikipedia.org/wiki/Phenotype
-       *
-       *  The Phenotype module manages a cell's actual observed properties, such as textContent ($text), nodeType ($type), innerHTML ($html), childNodes ($components), and DOM attributes
-       *
-       *   - build(): Build phenotype from genotype
-       *   - set(): Sets a key/value pair of phenotype
-       *   - $type(): translates the "$type" attribute to nodeType
-       *   - $text(): translates the "$type" attribute to textContent
-       *   - $html(): translates the "$type" attribute to innerHTML
-       *   - $components(): translates the "$components" attribute to childNodes
-       *   - $init(): executes the "$init" callback function after the element has been rendered
-       *   - $update(): executes the "$update" callback function when needed (called by Nucleus on every tick)
-       */
     build: function ($node, genotype) {
       Phenotype.$init($node);
       for (var key in genotype) {
@@ -388,20 +392,21 @@
       }
     },
   };
+
+  /**
+   *  [Nucleus] Handles the cell cycle
+   *
+   *  "The nucleus maintains the integrity of genes and controls the activities of the cell by regulating gene expression—the nucleus is, therefore, the control center of the cell."
+   *    - https://en.wikipedia.org/wiki/Cell_nucleus
+   *
+   *  The Nucleus module creates a proxy that lets Cell interface with the outside world. Its main job is to automatically trigger phenotype updates based on genotype updates
+   *
+   *   - set(): Starts listening to a single attribute.
+   *   - build(): Starts listening to all attributes defined on the gene
+   *   - bind(): Creates a wrapper function that executes the original function, and then automatically updates the Phenotype if necessary.
+   *   - queue(): A function that queues up all potential genotype mutation events so that they can be batch-processed in a single tick.
+   */
   var Nucleus = {
-    /*
-       *  [Nucleus] Handles the cell cycle
-       *
-       *  "The nucleus maintains the integrity of genes and controls the activities of the cell by regulating gene expression—the nucleus is, therefore, the control center of the cell."
-       *    - https://en.wikipedia.org/wiki/Cell_nucleus
-       *
-       *  The Nucleus module creates a proxy that lets Cell interface with the outside world. Its main job is to automatically trigger phenotype updates based on genotype updates
-       *
-       *   - set(): Starts listening to a single attribute.
-       *   - build(): Starts listening to all attributes defined on the gene
-       *   - bind(): Creates a wrapper function that executes the original function, and then automatically updates the Phenotype if necessary.
-       *   - queue(): A function that queues up all potential genotype mutation events so that they can be batch-processed in a single tick.
-       */
     tick: $root.requestAnimationFrame || $root.webkitRequestAnimationFrame ||
       $root.mozRequestAnimationFrame || $root.msRequestAnimationFrame ||
       function (cb) {

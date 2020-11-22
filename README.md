@@ -52,8 +52,17 @@ es and objects, making it extremely modular.
 # Installation
 
 1) Via CDN (preferred)
+
+- source (about 30kb)
+
 ```html
-<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.5.0/cell.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.8.0/cell.js"></script>
+```
+
+- minified (about 11kb)
+
+```html
+<script src="https://cdn.jsdelivr.net/gh/lesichkovm/cell@1.8.0/dist/cell.min.js"></script>
 ```
 
 2) Manual
