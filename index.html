@@ -182,247 +182,271 @@ var el = {
                 </div>
               </div>
             </section>
-
             <section class="post">
               <header class="post-header">
-                <h2 class="post-title"></h2>
+                <h2 class="post-title" id="there-is-no-framework">There Is No Framework</h2>
               </header>
-              <div class="post-description"></div>
+              <div class="post-description">
+                <p>A couple of things to note from the code:</p>
+                <ol>
+                  <li>There are no framework classes to inherit and extend from.</li>
+                  <li>There are no API method calls.</li>
+                  <li>There are no HTML body tags.</li>
+                  <li>All we have is a single JSON-like variable.</li>
+                  <li>The DOM just builds itself without you running any function.</li>
+                </ol>
+              </div>
             </section>
 
 
             <section class="post">
               <header class="post-header">
-                <h2 class="post-title"></h2>
+                <h2 class="post-title" id="there-are-only-3-rules">There are only 3 rules</h2>
               </header>
-              <div class="post-description"></div>
-            </section>
+              <div class="post-description">
+                <p>Cell has no API. 100% of your code will be vanilla Javascript, and there is no framework method or class to implement.</p>
+                <p>To use Cell, you simply define a variable that describes the DOM content and behavior.</p>
+                <p><strong>When you follow the 3 rules below, Cell turns it into HTML.</strong></p>
+                <p><br></p>
+                <h3 id="rule-1-attributes-map-1-1-to-dom-attributes-by-default-">Rule #1. Attributes map 1:1 to DOM attributes by default.</h2>
+                  <p>When you define a Javascript object, its attributes map 1:1 to DOM attributes. So,</p>
 
-            <section class="post">
-              <header class="post-header">
-                <h2 class="post-title"></h2>
-              </header>
-              <div class="post-description"></div>
-            </section>
-
-            <section class="post">
-              <header class="post-header">
-                <h2 class="post-title"></h2>
-              </header>
-              <div class="post-description"></div>
-            </section>
-
-
-
-            <!-- <p><br></p>
-    <p>Here's the generated DOM tree, as viewed in Chrome inspector:</p>
-    <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/autnonomous_dom.png" alt="autonomous dom"></p>
-    <p><br></p> -->
-            <h1 id="there-is-no-framework">There Is No Framework</h1>
-            <p>A couple of things to note from the code:</p>
-            <ol>
-              <li>There are no framework classes to inherit and extend from.</li>
-              <li>There are no API method calls.</li>
-              <li>There are no HTML body tags.</li>
-              <li>All we have is a single JSON-like variable.</li>
-              <li>The DOM just builds itself without you running any function.</li>
-            </ol>
-            <p><br></p>
-            <h1 id="there-are-only-3-rules">There are only 3 rules</h1>
-            <p>Cell has no API. 100% of your code will be vanilla Javascript, and there is no framework method or class to implement.</p>
-            <p>To use Cell, you simply define a variable that describes the DOM content and behavior.</p>
-            <p><strong>When you follow the 3 rules below, Cell turns it into HTML.</strong></p>
-            <p><br></p>
-            <h2 id="rule-1-attributes-map-1-1-to-dom-attributes-by-default-">Rule #1. Attributes map 1:1 to DOM attributes by default.</h2>
-            <p>When you define a Javascript object, its attributes map 1:1 to DOM attributes. So,</p>
-            <pre><code class="lang-js">var node = {
+                  <div class="pure-g">
+                    <div class="pure-u-1-2">
+                      <p>for example:</p>
+                      <pre>
+                      <code class="lang-js" data-language="javascript">
+var node = {
   id: "container",
   class: "red"
 }
-</code></pre>
-            <p>maps to:</p>
-            <pre><code class="lang-html">&lt;div id="container" class="red"&gt;&lt;/div&gt;
-</code></pre>
-            <p><br></p>
-            <h2 id="rule-2-use-7-special-keywords-to-declare-the-cell-structure">Rule #2. Use 7 special keywords to declare the cell structure</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>Key</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>$cell</td>
-                  <td>Required. Tells Cell to create a cell element using this object as a root</td>
-                </tr>
-                <tr>
-                  <td>$type</td>
-                  <td>The type of element to create. (<code>div</code>, <code>form</code>, <code>textarea</code>, etc.)</td>
-                </tr>
-                <tr>
-                  <td>$components</td>
-                  <td>Array of nested child nodes</td>
-                </tr>
-                <tr>
-                  <td>$text</td>
-                  <td>Text content inside the element (for simple nodes with no $components)</td>
-                </tr>
-                <tr>
-                  <td>$html</td>
-                  <td>Unescaped html content inside the element</td>
-                </tr>
-                <tr>
-                  <td>$init</td>
-                  <td>A function that auto-executes when the element gets created</td>
-                </tr>
-                <tr>
-                  <td>$update</td>
-                  <td>A function that auto-executes when any data stored inside the element changes</td>
-                </tr>
-              </tbody>
-            </table>
-            <p>For example,</p>
-            <pre><code class="lang-js">var el = {
-  $cell: true,
-  $type: "div",
-  $components: [
-    { $type: "span", $text: "Javascript" },
-    { $type: "span", $text: "objective-c" },
-    { $type: "span", $text: "ruby" },
-    { $type: "span", $text: "java" },
-    { $type: "span", $text: "lisp" }
-  ]
-}
-</code></pre>
-            <p>becomes:</p>
-            <pre><code class="lang-html">&lt;div&gt;
-  &lt;span&gt;Javascript&lt;/span&gt;
-  &lt;span&gt;objective-c&lt;/span&gt;
-  &lt;span&gt;ruby&lt;/span&gt;
-  &lt;span&gt;java&lt;/span&gt;
-  &lt;span&gt;lisp&lt;/span&gt;
+                    </code>
+                  </pre>
+                    </div>
+                    <div class="pure-u-1-2">
+                      <p>maps to:</p>
+                      <pre>
+                    <code class="lang-html" data-language="html">
+
+&lt;div id="container" class="red"&gt;
 &lt;/div&gt;
-</code></pre>
-            <p><br></p>
-            <h2 id="rule-3-use-the-_-prefix-to-store-data-and-logic-on-an-html-element">Rule #3. Use the "_" Prefix to Store Data and Logic on an HTML Element</h2>
-            <p>Cell lets you store data and application logic directly on HTML elements.</p>
-            <p>To define a variable on an element's context, simply prepend your attribute name with "_". Cell will treat it as data and make sure it doesn't affect the view.</p>
-            <pre><code class="lang-js">el = {
-  $cell: true,
-  $type: "button",
-  type: "button",
-  $text: "Get next item",
-  onclick: function(e) { this._next() },
-  _next: function() {
-    this._index++;
-    this.$text = this._items[this._index];
-  },
-  _index: 0,
-  _items: ["javascript", "objective-c", "ruby", "java", "lisp"]
-}
-</code></pre>
-            <p>Here we use <code>_items</code> to store an array, <code>_index</code> to store an integer counter, and <code>_next</code> to store a function that will run this element by
-              incrementing
-              <code>_index</code> and iterating through <code>_items</code>.
-            </p>
-            <p><br></p>
-            <h1 id="how-it-works">How it works</h1>
-            <h2 id="1-cell-is-a-single-function-that-creates-a-dom-tree-">1. Cell is a Single Function that Creates a DOM Tree.</h2>
-            <p>When Cell loads, it first looks for all Javascript variables that have a <code>$cell</code> key.</p>
-            <p>When it finds one, it takes that blueprint object (called a <code>"Genotype"</code> in Cell) and creates a DOM tree (<code>"Phenotype"</code>) from it.</p>
-            <!-- <p><br></p>
-    <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/function.jpg" alt="generator"></p>
-    <p><br></p> -->
-            <h2 id="2-self-driving-dom">2. Self-driving DOM</h2>
-            <p>So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.</p>
-            <p>Normally Javascript frameworks maintain a separate <strong>centralized data structure and application context (<a
-                  href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> or some variation)</strong> that synchronizes with and controls HTML elements
-              dynamically.</p>
-            <p><strong>Cell takes a decentralized approach.</strong> It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own)
-              and
-              can
-              therefore "drive" itself autonomously (Internally called <code>"Nucleus"</code>).</p>
-            <p><br></p>
-            <!-- <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg" alt="Image"></p> -->
-            <p><br></p>
-            <p>Instead of having a central master application control the DOM, <strong>Cell directly injects application context into each relevant HTML element so they can run on their own,
-                independent
-                from the outside world.</strong></p>
-            <p>Learn more about the underlying architecture <a href="./GENESIS.md">here</a>.</p>
-            <p><br></p>
-            <h1 id="what-problems-this-solves">What problems this solves</h1>
-            <h2 id="1-there-is-no-god-there-is-no-framework-">1. There is No God (There is No Framework)</h2>
-            <p>Cell has no overarching framework that powers each and every corner of your app.</p>
-            <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/architecture.jpg" alt="Image"></p>
-            <p>Normally web app frameworks maintain a central "Model-View-Controller" architecture (or similar) which takes care of everything throughout the app's lifecycle.</p>
-            <p>Cell works differently. It just creates the DOM and then goes away, because each HTML element it creates can self-drive itself with its <strong>own</strong> model-view-controller.
-              Instead
-              of
-              controlling the DOM remotely with a framework's API, with Cell you control it directly and natively.</p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Comparison</th>
-                  <th>Frameworks before Cell</th>
-                  <th>Cell</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Control</td>
-                  <td>Centralized</td>
-                  <td>Decentralized</td>
-                </tr>
-                <tr>
-                  <td>Structure</td>
-                  <td>A master Model-View-Controller program that controls all the HTML elements</td>
-                  <td>Each html element as the container of its own Model-View-Controller logic</td>
-                </tr>
-                <tr>
-                  <td>Your App</td>
-                  <td>Full of framework API syntax</td>
-                  <td>Just a vanilla Javascript. No framework code.</td>
-                </tr>
-                <tr>
-                  <td>Job</td>
-                  <td>Manages everything throughout the entire app lifecycle</td>
-                  <td>Runs exactly once at the beginning to create an autonomous DOM tree, and then goes away.</td>
-                </tr>
-              </tbody>
-            </table>
-            <p><br></p>
-            <h2 id="2-there-are-no-middlemen">2. There are No Middlemen</h2>
-            <p>Nowadays, just to make a simple web app you need to learn all kinds of middlemen technologies.</p>
-            <p>These tools were born out of necessity as web apps became more complex. But if you take a fundamentally different approach, you may not need them at all.</p>
-            <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/process.jpg" alt="Image"></p>
-            <p>Here are some of the reasons why these middlemen have been necessary, and <strong>why Cell doesn't need them</strong>.</p>
-            <h5 id="1-frameworks-have-a-class-you-have-to-inherit-or-extend-">1. Frameworks have a class you have to inherit or extend.</h5>
-            <blockquote>
-              <p>Normally web app frameworks let you use their API by extending or inheriting from their class. Cell has no class and no API method.</p>
-            </blockquote>
-            <h5 id="2-frameworks-depend-on-other-libraries-">2. Frameworks depend on other libraries.</h5>
-            <blockquote>
-              <p>Most web app frameworks depend on other complex libraries (Don't forget to <code>npm install</code> before doing anything!) Cell doesn't depend on any library.</p>
-            </blockquote>
-            <h5 id="3-frameworks-introduce-dependencies-">3. Frameworks introduce dependencies.</h5>
-            <blockquote>
-              <p>Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use <code>npm install</code> for every frontend Javascript library
-                you
-                need
-                to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple <code>&lt;script src&gt;</code>.</p>
-            </blockquote>
-            <h5 id="4-framework-specific-markup-needs-to-be-compiled-">4. Framework-specific markup needs to be compiled.</h5>
-            <blockquote>
-              <p>Cell stays away from inventing any framework-specific markup such as HTML templates. There's no template to compile.</p>
-            </blockquote>
-            <h5 id="5-frameworks-require-you-to-transpile-compile-and-or-build-your-app-to-make-it-work-">5. Frameworks require you to transpile, compile, and/or build your app to make it work.</h5>
-            <blockquote>
-              <p>Cell is built with ES5, which works in ALL browsers (including IE). There's no need to transpile your code to use Cell, it just works right away.</p>
-            </blockquote>
-            <p><br></p>
-            <h2 id="3-app-as-data">3. App as Data</h2>
+
+</code>
+                    </pre>
+                    </div>
+                  </div>
+
+                  <h3 id="rule-2-use-7-special-keywords-to-declare-the-cell-structure">Rule #2. Use 7 special keywords to declare the cell structure</h3>
+                  <table class="pure-table">
+                    <thead>
+                      <tr>
+                        <th>Key</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>$cell</td>
+                        <td>Required. Tells Cell to create a cell element using this object as a root</td>
+                      </tr>
+                      <tr>
+                        <td>$type</td>
+                        <td>The type of element to create. (<code>div</code>, <code>form</code>, <code>textarea</code>, etc.)</td>
+                      </tr>
+                      <tr>
+                        <td>$components</td>
+                        <td>Array of nested child nodes</td>
+                      </tr>
+                      <tr>
+                        <td>$text</td>
+                        <td>Text content inside the element (for simple nodes with no $components)</td>
+                      </tr>
+                      <tr>
+                        <td>$html</td>
+                        <td>Unescaped html content inside the element</td>
+                      </tr>
+                      <tr>
+                        <td>$init</td>
+                        <td>A function that auto-executes when the element gets created</td>
+                      </tr>
+                      <tr>
+                        <td>$update</td>
+                        <td>A function that auto-executes when any data stored inside the element changes</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="pure-g">
+                    <div class="pure-u-1-2">
+                      <p>For example,</p>
+                      <pre>
+                  <code class="lang-js" data-language="javascript">
+var el = {
+    $cell: true,
+    $type: "div",
+    $components: [
+      { $type: "span", $text: "Javascript" },
+      { $type: "span", $text: "objective-c" },
+      { $type: "span", $text: "ruby" },
+      { $type: "span", $text: "java" },
+      { $type: "span", $text: "lisp" }
+    ]
+  }
+  </code></pre>
+                    </div>
+                    <div class="pure-u-1-2">
+                      <p>becomes:</p>
+                      <pre>
+                        <code class="lang-html" data-language="html">
+
+&lt;div&gt;
+    &lt;span&gt;Javascript&lt;/span&gt;
+    &lt;span&gt;objective-c&lt;/span&gt;
+    &lt;span&gt;ruby&lt;/span&gt;
+    &lt;span&gt;java&lt;/span&gt;
+    &lt;span&gt;lisp&lt;/span&gt;
+&lt;/div&gt;
+
+
+                      </code>
+                    </pre>
+                    </div>
+                  </div>
+                  <p><br></p>
+                  <h3 id="rule-3-use-the-_-prefix-to-store-data-and-logic-on-an-html-element">Rule #3. Use the "_" Prefix to Store Data and Logic on an HTML Element</h2>
+                    <p>Cell lets you store data and application logic directly on HTML elements.</p>
+                    <p>To define a variable on an element's context, simply prepend your attribute name with "_". Cell will treat it as data and make sure it doesn't affect the view.</p>
+                    <pre><code class="lang-js">el = {
+    $cell: true,
+    $type: "button",
+    type: "button",
+    $text: "Get next item",
+    onclick: function(e) { this._next() },
+    _next: function() {
+      this._index++;
+      this.$text = this._items[this._index];
+    },
+    _index: 0,
+    _items: ["javascript", "objective-c", "ruby", "java", "lisp"]
+  }
+  </code>
+</pre>
+                    <p>Here we use <code>_items</code> to store an array, <code>_index</code> to store an integer counter, and <code>_next</code> to store a function that will run this element by
+                      incrementing
+                      <code>_index</code> and iterating through <code>_items</code>.
+                    </p>
+              </div>
+            </section>
+            <section class="post">
+              <header class="post-header">
+                <h2 class="post-title" id="how-it-works">How it works</h2>
+              </header>
+              <div class="post-description"></div>
+              <h3 id="1-cell-is-a-single-function-that-creates-a-dom-tree-">1. Cell is a Single Function that Creates a DOM Tree.</h3>
+              <p>When Cell loads, it first looks for all Javascript variables that have a <code>$cell</code> key.</p>
+              <p>When it finds one, it takes that blueprint object (called a <code>"Genotype"</code> in Cell) and creates a DOM tree (<code>"Phenotype"</code>) from it.</p>
+
+              <h3 id="2-self-driving-dom">2. Self-driving DOM</h3>
+              <p>So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.</p>
+              <p>Normally Javascript frameworks maintain a separate <strong>centralized data structure and application context (<a
+                    href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> or some variation)</strong> that synchronizes with and controls HTML elements
+                dynamically.</p>
+              <p><strong>Cell takes a decentralized approach.</strong> It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own)
+                and can therefore "drive" itself autonomously (Internally called <code>"Nucleus"</code>).</p>
+              <p><br></p>
+              <!-- <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg" alt="Image"></p> -->
+              <p><br></p>
+              <p>Instead of having a central master application control the DOM, <strong>Cell directly injects application context into each relevant HTML element so they can run on their own,
+                  independent
+                  from the outside world.</strong></p>
+              <p>Learn more about the underlying architecture <a href="./GENESIS.md">here</a>.</p>
+          </div>
+          </section>
+
+
+
+          <section class="post">
+            <header class="post-header">
+              <h2 class="post-title"></h2>
+            </header>
+            <div class="post-description"></div>
+          </section>
+
+
+          <p><br></p>
+
+
+          <h1 id="what-problems-this-solves">What problems this solves</h1>
+          <h3 id="1-there-is-no-god-there-is-no-framework-">1. There is No God (There is No Framework)</h3>
+          <p>Cell has no overarching framework that powers each and every corner of your app.</p>
+          <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/architecture.jpg" alt="Image"></p>
+          <p>Normally web app frameworks maintain a central "Model-View-Controller" architecture (or similar) which takes care of everything throughout the app's lifecycle.</p>
+          <p>Cell works differently. It just creates the DOM and then goes away, because each HTML element it creates can self-drive itself with its <strong>own</strong> model-view-controller.
+            Instead
+            of
+            controlling the DOM remotely with a framework's API, with Cell you control it directly and natively.</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Comparison</th>
+                <th>Frameworks before Cell</th>
+                <th>Cell</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Control</td>
+                <td>Centralized</td>
+                <td>Decentralized</td>
+              </tr>
+              <tr>
+                <td>Structure</td>
+                <td>A master Model-View-Controller program that controls all the HTML elements</td>
+                <td>Each html element as the container of its own Model-View-Controller logic</td>
+              </tr>
+              <tr>
+                <td>Your App</td>
+                <td>Full of framework API syntax</td>
+                <td>Just a vanilla Javascript. No framework code.</td>
+              </tr>
+              <tr>
+                <td>Job</td>
+                <td>Manages everything throughout the entire app lifecycle</td>
+                <td>Runs exactly once at the beginning to create an autonomous DOM tree, and then goes away.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><br></p>
+          <h3 id="2-there-are-no-middlemen">2. There are No Middlemen</h3>
+          <p>Nowadays, just to make a simple web app you need to learn all kinds of middlemen technologies.</p>
+          <p>These tools were born out of necessity as web apps became more complex. But if you take a fundamentally different approach, you may not need them at all.</p>
+          <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/process.jpg" alt="Image"></p>
+          <p>Here are some of the reasons why these middlemen have been necessary, and <strong>why Cell doesn't need them</strong>.</p>
+          <h5 id="1-frameworks-have-a-class-you-have-to-inherit-or-extend-">1. Frameworks have a class you have to inherit or extend.</h5>
+          <blockquote>
+            <p>Normally web app frameworks let you use their API by extending or inheriting from their class. Cell has no class and no API method.</p>
+          </blockquote>
+          <h5 id="2-frameworks-depend-on-other-libraries-">2. Frameworks depend on other libraries.</h5>
+          <blockquote>
+            <p>Most web app frameworks depend on other complex libraries (Don't forget to <code>npm install</code> before doing anything!) Cell doesn't depend on any library.</p>
+          </blockquote>
+          <h5 id="3-frameworks-introduce-dependencies-">3. Frameworks introduce dependencies.</h5>
+          <blockquote>
+            <p>Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use <code>npm install</code> for every frontend Javascript library
+              you
+              need
+              to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple <code>&lt;script src&gt;</code>.</p>
+          </blockquote>
+          <h5 id="4-framework-specific-markup-needs-to-be-compiled-">4. Framework-specific markup needs to be compiled.</h5>
+          <blockquote>
+            <p>Cell stays away from inventing any framework-specific markup such as HTML templates. There's no template to compile.</p>
+          </blockquote>
+          <h5 id="5-frameworks-require-you-to-transpile-compile-and-or-build-your-app-to-make-it-work-">5. Frameworks require you to transpile, compile, and/or build your app to make it work.</h5>
+          <blockquote>
+            <p>Cell is built with ES5, which works in ALL browsers (including IE). There's no need to transpile your code to use Cell, it just works right away.</p>
+          </blockquote>
+          <p><br></p>
+
+          <h3 id="3-app-as-data">3. App as Data</h2>
             <p>Cell is based on the same idea behind <a href="https://www.jasonette.com">Jasonette</a>, a simple way to build cross-platform iOS/Android native apps with nothing but JSON markup.</p>
             <p>Just like Jasonette, Cell lets you express <strong>application logic as a piece of flat data</strong>. This allows you to not only transform and manipulate data, but also the
               application
@@ -466,7 +490,8 @@ var El = {
                 entire Model-View-Controller.</li>
             </ol>
             <p><br></p>
-            <h2 id="5-write-future-proof-code">5. Write Future-proof Code</h2>
+
+            <h3 id="5-write-future-proof-code">5. Write Future-proof Code</h3>
             <p>Normally when you use a web app framework, you write code that heavily depends on the framework API.</p>
             <p>So if you ever want to use a new framework, you have to rewrite the entire app, taking a huge amount of time to make it do exactly the same thing it used to do.</p>
             <p><strong>With Cell, your can write code that never becomes useless</strong>, simply because:</p>
@@ -497,20 +522,20 @@ var El = {
 
 
 
-          </div>
-
-          <div class="footer">
-            <div class="pure-menu pure-menu-horizontal">
-              <ul>
-                <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">About</a></li>
-                <li class="pure-menu-item"><a href="http://twitter.com/yuilibrary/" class="pure-menu-link">Twitter</a></li>
-                <li class="pure-menu-item"><a href="http://github.com/pure-css/pure/" class="pure-menu-link">GitHub</a></li>
-              </ul>
-            </div>
-          </div>
-
         </div>
+
+        <div class="footer">
+          <div class="pure-menu pure-menu-horizontal">
+            <ul>
+              <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">About</a></li>
+              <li class="pure-menu-item"><a href="http://twitter.com/yuilibrary/" class="pure-menu-link">Twitter</a></li>
+              <li class="pure-menu-item"><a href="http://github.com/pure-css/pure/" class="pure-menu-link">GitHub</a></li>
+            </ul>
+          </div>
+        </div>
+
       </div>
+    </div>
     </div>
     <!-- End Pure Region  -->
 
