@@ -2,7 +2,8 @@
 
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cell/1.2.0/cell.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cell/1.2.0/cell.min.js" crossorigin="anonymous"
+      integrity="sha512-9uRYpATD30slE6ahez69aiL7kQmB7OQbpHtD4c5YyRjQNIHLGG7rIYt9x1zjMxQub2kA7nv3dO3YdG7bjHqMdQ=="></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.1/timeago.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
     <script src="./website/demos/twitter.js"></script>
@@ -43,87 +44,170 @@
     <h1 id="try-now">Try Now</h1>
     <p>Try downloading to your local machine and open it in your browser.</p>
     <p>Seriously, there is no additional code or dependency, no environment to set up. What you see is what you get.</p>
-    <!-- <h3 id="-download-and-try-it-https-s3-us-west-2-amazonaws-com-fm-ethan-jason-cell_sync-html-"><a href="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_sync.html">Download and Try it!</a>
-    </h3> -->
-    <pre><code class="lang-html">&lt;html&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/cell/1.2.0/cell.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-var el = {
-  $cell: true,
-  style: "font-family: Helvetica; font-size: 14px;",
-  $components: [
-    {
-      $type: "input",
-      type: "text",
-      placeholder: "Type something and press enter",
-      style: "width: 100%; outline:none; padding: 5px;",
-      $init: function(e) { this.focus() },
-      onkeyup: function(e) {
-        if (e.keyCode === 13) {
-          document.querySelector("#list")._add(this.value);
-          this.value = "";
-        }
-      }
-    },
-    {
-      $type: "ol",
-      id: "list",
-      _items: [],
-      $components: [],
-      _add: function(val) { this._items.push(val) },
-      $update: function() {
-        this.$components = this._items.map(function(item) {
-          return { $type: "li", $text: item }
-        })
-      }
-    }
-  ]
-}
-&lt;/script&gt;
-&lt;/html&gt;
-</code></pre>
 
 
-    <aside style="display: inline-block;">
+
+    <pre>
+      <code class="lang-html">&lt;html&gt;
+      &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/cell/1.2.0/cell.min.js" crossorigin="anonymous"
+      integrity="sha512-9uRYpATD30slE6ahez69aiL7kQmB7OQbpHtD4c5YyRjQNIHLGG7rIYt9x1zjMxQub2kA7nv3dO3YdG7bjHqMdQ=="&gt;&lt;/script&gt;
+      &lt;script&gt;
+      var el = {
+        $cell: true,
+        id: 'inline-sample',
+        style: "font-family: Helvetica; font-size: 14px;",
+        $components: [{
+          $type: 'div',
+          $components: [],
+          $text: `Type any text in the input field and press enter to create a list item`,
+          $init: function () {
+            setInterval(() => { this.$update() }, 1000);
+          },
+          $update: function () {
+            this.$text = `Type any text in the input field and press enter to create a list item ${new Date().toISOString()}`
+          }
+        },
+        {
+          $type: "ol",
+          id: "list",
+          _items: [],
+          $components: [],
+          _add: function (val, idx) {
+            if (idx === -1) {
+              this._items.push(val)
+            }
+            else {
+              this._items[idx] = val
+            }
+          },
+          $update: function () {
+            this.$components = this._items.map(function (item, i) {
+              let rowClass = i % 2 == 0 ? 'even' : 'odd';
+              return { $type: "li", $text: item, class: rowClass, _idx: i }
+            })
+          },
+          onclick: function (event) {
+            console.log(event.target)
+            document.querySelector('#editor')._set(event.target.$text, event.target._idx);
+          }
+        },
+        {
+          $type: "input",
+          id: 'editor',
+          type: "text",
+          placeholder: "Type something and press enter",
+          style: "width: 100%; outline:none; padding: 5px;",
+          $init: function (e) { this.focus() },
+          _idx: -1,
+          _set: function (val, idx) {
+            this._idx = idx;
+            this.value = val;
+          },
+          onkeyup: function (e) {
+            if (e.keyCode === 13) {
+              document.querySelector("#list")._add(this.value, this._idx);
+              this._idx = -1;
+              this.value = "";
+            }
+          }
+        },
+      
+        ]
+      }
+      &lt;/script&gt;
+      &lt;body&gt;
+      &lt;div id="inline-sample"&gt;
+      &lt;/div&gt;
+      &lt;/body&gt;
+      &lt;/html&gt;
+      </code>
+    </pre>
+
+
+
+
+
+    <div>
+
+      Here is the generated elements, you can inspect the page to see the DOM
+      <br />
       <script>
         var el = {
           $cell: true,
           id: 'inline-sample',
           style: "font-family: Helvetica; font-size: 14px;",
-          $components: [
-            {
-              $type: "input",
-              type: "text",
-              placeholder: "Type something and press enter",
-              style: "width: 100%; outline:none; padding: 5px;",
-              $init: function (e) { this.focus() },
-              onkeyup: function (e) {
-                if (e.keyCode === 13) {
-                  document.querySelector("#list")._add(this.value);
-                  this.value = "";
-                }
+          $components: [{
+            $type: 'div',
+            $components: [],
+            $text: `Type any text in the input field and press enter to create a list item`,
+            $init: function () {
+              setInterval(() => { this.$update() }, 1000);
+            },
+            $update: function () {
+              this.$text = `Type any text in the input field and press enter to create a list item ${new Date().toISOString()}`
+            }
+          },
+          {
+            $type: "ol",
+            id: "list",
+            _items: [],
+            $components: [],
+            _add: function (val, idx) {
+              if (idx === -1) {
+                this._items.push(val)
+              }
+              else {
+                this._items[idx] = val
               }
             },
-            {
-              $type: "ol",
-              id: "list",
-              _items: [],
-              $components: [],
-              _add: function (val) { this._items.push(val) },
-              $update: function () {
-                this.$components = this._items.map(function (item) {
-                  return { $type: "li", $text: item }
-                })
+            $update: function () {
+              this.$components = this._items.map(function (item, i) {
+                let rowClass = i % 2 == 0 ? 'even' : 'odd';
+                return { $type: "li", $text: item, class: rowClass, _idx: i }
+              })
+            },
+            onclick: function (event) {
+              console.log(event.target)
+              document.querySelector('#editor')._set(event.target.$text, event.target._idx);
+            }
+          },
+          {
+            $type: "input",
+            id: 'editor',
+            type: "text",
+            placeholder: "Type something and press enter",
+            style: "width: 100%; outline:none; padding: 5px;",
+            $init: function (e) { this.focus() },
+            _idx: -1,
+            _set: function (val, idx) {
+              this._idx = idx;
+              this.value = val;
+            },
+            onkeyup: function (e) {
+              if (e.keyCode === 13) {
+                document.querySelector("#list")._add(this.value, this._idx);
+                this._idx = -1;
+                this.value = "";
               }
             }
+          },
+
           ]
         }
       </script>
-      <p>Here is the generated elements, you can inspect the page to see the DOM</p>
+      <style>
+        .odd {
+          background-color: antiquewhite;
+        }
+
+        .even {
+          background-color: beige;
+        }
+      </style>
       <div id="inline-sample">
 
       </div>
-    </aside>
+    </div>
     <!-- <p><br></p>
     <p>Here's the generated DOM tree, as viewed in Chrome inspector:</p>
     <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/autnonomous_dom.png" alt="autonomous dom"></p>
